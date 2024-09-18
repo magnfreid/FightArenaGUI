@@ -14,14 +14,14 @@ public class Arena {
     final private ArrayList<Consumable> consumables = Setup.loadConsumables();
     Random random = new Random();
 
-    public void fight(Fighter fighter1, Fighter fighter2) throws InterruptedException {
 
+    //TODO add rounds with weapon and armor switch in between + chance to use consumables
+    public void fight(Fighter fighter1, Fighter fighter2) throws InterruptedException {
 
         fighter1.pickUpWeapon(weapons.get(random.nextInt(weapons.size())));
         fighter2.pickUpWeapon(weapons.get(random.nextInt(weapons.size())));
         fighter1.pickUpArmor(armors.get(random.nextInt(armors.size())));
         fighter2.pickUpArmor(armors.get(random.nextInt(armors.size())));
-
 
         while (fighter1.getHealth() > 0 && fighter2.getHealth() > 0) {
             try {
