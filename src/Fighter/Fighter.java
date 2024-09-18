@@ -4,7 +4,6 @@ import Items.Armor;
 import Items.Consumable;
 import Items.Weapon;
 
-import javax.sql.ConnectionPoolDataSource;
 import java.util.Random;
 
 public class Fighter {
@@ -15,6 +14,9 @@ public class Fighter {
     private Consumable consumable;
     final private Weapon fist = new Weapon("Fists", 0, 1.3);
     final private Armor shirt = new Armor("Shirt", 0, 0);
+
+
+    boolean isAlive = true;
 
     public Fighter(String name) {
         this.name = name;
@@ -65,15 +67,21 @@ public class Fighter {
             System.out.println(enemy.getName() + " deflected " + deflected + " points of damage!");
         }
         System.out.println(enemy.getName() + " took " + totalAttackDamage + " damage!");
-        System.out.println(enemy.getName() + " has " + enemy.getHealth() + " health left...");
 
+        if (enemy.getHealth() <1) {
+            enemy.playerDeath();
+            System.out.println(enemy.name + " died...");
+            System.out.println("The winner is " + this.name +"!");
+        }
+        else  {
+            System.out.println(enemy.getName() + " has " + enemy.getHealth() + " health left...");
+        }
     }
 
     public void pickUpWeapon(Weapon weapon) {
         if (weapon.damage() > this.weapon.damage()) {
             this.weapon = weapon;
-            System.out.println("Weapon: " +weapon.name() + " was picked up by " + this.name + "!");
-
+            System.out.println("Weapon: " + weapon.name() + " was picked up by " + this.name + "!");
         }
     }
 
@@ -82,12 +90,12 @@ public class Fighter {
         if (armor.armorValue() > this.armor.armorValue()) {
             this.armor = armor;
             System.out.println("Armor: " + armor.name() + " was picked up by " + this.name + "!");
-            this.setHealth(this.getHealth()+this.armor.healthBonus());
+            this.setHealth(this.getHealth() + this.armor.healthBonus());
         }
     }
 
     void dropArmor() {
-        this.setHealth(this.getHealth()-this.armor.healthBonus());
+        this.setHealth(this.getHealth() - this.armor.healthBonus());
         this.setArmor(shirt);
     }
 
@@ -118,5 +126,13 @@ public class Fighter {
 
     public void setArmor(Armor armor) {
         this.armor = armor;
+    }
+
+    public boolean isAlive() {
+        return isAlive;
+    }
+
+    public void playerDeath() {
+        this.isAlive = false;
     }
 }

@@ -23,16 +23,16 @@ public class Arena {
         fighter1.pickUpArmor(armors.get(random.nextInt(armors.size())));
         fighter2.pickUpArmor(armors.get(random.nextInt(armors.size())));
 
-        while (fighter1.getHealth() > 0 && fighter2.getHealth() > 0) {
-            try {
+        while (fighter1.isAlive() && fighter2.isAlive()) {
+            if (fighter1.isAlive() && fighter2.isAlive()) {
                 Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                fighter1.attack(fighter2);
             }
-            fighter1.attack(fighter2);
-            Thread.sleep(2000);
-            fighter2.attack(fighter1);
 
+            if (fighter1.isAlive() && fighter2.isAlive()) {
+                Thread.sleep(2000);
+                fighter2.attack(fighter1);
+            }
         }
     }
 
