@@ -3,6 +3,7 @@ package Fighter;
 import Items.Armor;
 import Items.Consumable;
 import Items.Weapon;
+
 import java.util.Random;
 
 public class Fighter {
@@ -13,9 +14,8 @@ public class Fighter {
     private Consumable consumable;
     final private Weapon fist = new Weapon("Fists", 0, 1.3);
     final private Armor shirt = new Armor("Shirt", 0, 0);
-final private Consumable emptyPockets = new Consumable("Empty pockets", 0, 0);
-
-    boolean isAlive = true;
+    final private Consumable emptyPockets = new Consumable("Empty pockets", 0, 0);
+    private boolean isAlive = true;
 
     public Fighter(String name) {
         this.name = name;
@@ -65,12 +65,11 @@ final private Consumable emptyPockets = new Consumable("Empty pockets", 0, 0);
             System.out.println(enemy.getName() + " deflected " + deflected + " points of damage!");
         }
         System.out.println(enemy.getName() + " took " + totalAttackDamage + " damage!");
-        if (enemy.getHealth() <1) {
+        if (enemy.getHealth() < 1) {
             enemy.playerDeath();
             System.out.println(enemy.name + " died...");
-            System.out.println("The winner is " + name +"!");
-        }
-        else  {
+            System.out.println("The winner is " + name + "!");
+        } else {
             System.out.println(enemy.getName() + " has " + enemy.getHealth() + " health left...");
         }
     }
@@ -79,8 +78,7 @@ final private Consumable emptyPockets = new Consumable("Empty pockets", 0, 0);
         if (weapon.damage() > this.weapon.damage()) {
             this.weapon = weapon;
             System.out.println("Weapon: " + weapon.name() + " was picked up by " + name + "!");
-        }
-        else {
+        } else {
             System.out.println(name + " could not find a better weapon...");
         }
     }
@@ -90,9 +88,8 @@ final private Consumable emptyPockets = new Consumable("Empty pockets", 0, 0);
         if (armor.armorValue() > this.armor.armorValue()) {
             this.armor = armor;
             System.out.println("Armor: " + armor.name() + " was picked up by " + name + "!");
-           setHealth(getHealth() + this.armor.healthBonus());
-        }
-        else {
+            setHealth(getHealth() + this.armor.healthBonus());
+        } else {
             System.out.println(name + " could not find a better armor...");
         }
     }
