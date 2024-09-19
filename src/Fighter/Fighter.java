@@ -3,7 +3,6 @@ package Fighter;
 import Items.Armor;
 import Items.Consumable;
 import Items.Weapon;
-
 import java.util.Random;
 
 public class Fighter {
@@ -14,7 +13,7 @@ public class Fighter {
     private Consumable consumable;
     final private Weapon fist = new Weapon("Fists", 0, 1.3);
     final private Armor shirt = new Armor("Shirt", 0, 0);
-
+final private Consumable emptyPockets = new Consumable("Empty pockets", 0, 0);
 
     boolean isAlive = true;
 
@@ -25,16 +24,17 @@ public class Fighter {
         this.baseDamage = 12;
         this.weapon = fist;
         this.armor = shirt;
-        this.consumable = new Consumable("Empty pockets", 0, 0);
+        this.consumable = emptyPockets;
     }
 
     Random random = new Random();
 
     public void levelUp() {
         level++;
-        double modifier = 1.15;
-        health = (int) (health * modifier);
-        baseDamage = (int) (baseDamage * modifier);
+        double healthModifier = 1.05;
+        double damageModifier = 1.15;
+        health = (int) (health * healthModifier);
+        baseDamage = (int) (baseDamage * damageModifier);
     }
 
     public void attack(Fighter enemy) {
@@ -45,7 +45,7 @@ public class Fighter {
             criticalHit = true;
         }
         //Rollar 1-baseDamage, lägger till weapon damage och gångrar med crit modifier vid crit
-        int attackDamage = (int) ((random.nextInt(1, this.baseDamage) + this.weapon.damage()) * (criticalHit ? this.weapon.crit() : 1));
+        int attackDamage = (int) ((random.nextInt(1, baseDamage) + weapon.damage()) * (criticalHit ? weapon.crit() : 1));
         int enemyArmor = enemy.getArmor().armorValue();
         int totalAttackDamage;
         int deflected;
@@ -58,20 +58,17 @@ public class Fighter {
         }
         enemy.setHealth(enemy.getHealth() - totalAttackDamage);
         System.out.println(criticalHit ?
-                this.name + " CRITICALLY HITS " + enemy.getName() + " for " + attackDamage + "!"
+                name + " CRITICALLY HITS " + enemy.getName() + " for " + attackDamage + "!"
                 :
-                this.name + " attacked " + enemy.getName() + " for " + attackDamage + "!");
-        //TODO nåt är fel här, får ibland minus-damage
+                name + " attacked " + enemy.getName() + " for " + attackDamage + "!");
         if (deflected > 0) {
-
             System.out.println(enemy.getName() + " deflected " + deflected + " points of damage!");
         }
         System.out.println(enemy.getName() + " took " + totalAttackDamage + " damage!");
-
         if (enemy.getHealth() <1) {
             enemy.playerDeath();
             System.out.println(enemy.name + " died...");
-            System.out.println("The winner is " + this.name +"!");
+            System.out.println("The winner is " + name +"!");
         }
         else  {
             System.out.println(enemy.getName() + " has " + enemy.getHealth() + " health left...");
@@ -81,7 +78,10 @@ public class Fighter {
     public void pickUpWeapon(Weapon weapon) {
         if (weapon.damage() > this.weapon.damage()) {
             this.weapon = weapon;
-            System.out.println("Weapon: " + weapon.name() + " was picked up by " + this.name + "!");
+            System.out.println("Weapon: " + weapon.name() + " was picked up by " + name + "!");
+        }
+        else {
+            System.out.println(name + " could not find a better weapon...");
         }
     }
 
@@ -89,14 +89,17 @@ public class Fighter {
     public void pickUpArmor(Armor armor) {
         if (armor.armorValue() > this.armor.armorValue()) {
             this.armor = armor;
-            System.out.println("Armor: " + armor.name() + " was picked up by " + this.name + "!");
-            this.setHealth(this.getHealth() + this.armor.healthBonus());
+            System.out.println("Armor: " + armor.name() + " was picked up by " + name + "!");
+           setHealth(getHealth() + this.armor.healthBonus());
+        }
+        else {
+            System.out.println(name + " could not find a better armor...");
         }
     }
 
     void dropArmor() {
-        this.setHealth(this.getHealth() - this.armor.healthBonus());
-        this.setArmor(shirt);
+        this.setHealth(getHealth() - armor.healthBonus());
+        setArmor(shirt);
     }
 
     public void pickUpConsumable(Consumable consumable) {
@@ -115,6 +118,9 @@ public class Fighter {
         return health;
     }
 
+    public int getLevel() {
+        return level;
+    }
 
     public Armor getArmor() {
         return armor;
@@ -133,6 +139,6 @@ public class Fighter {
     }
 
     public void playerDeath() {
-        this.isAlive = false;
+        isAlive = false;
     }
 }

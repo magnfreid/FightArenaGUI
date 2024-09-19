@@ -14,16 +14,25 @@ public class Arena {
     final private ArrayList<Consumable> consumables = Setup.loadConsumables();
     Random random = new Random();
 
-
-    //TODO add rounds with weapon and armor switch in between + chance to use consumables
+    //Chans att plocka upp ett bättre vapen var tredje runda + bättre armor för den med minst liv...
     public void fight(Fighter fighter1, Fighter fighter2) throws InterruptedException {
-
-        fighter1.pickUpWeapon(weapons.get(random.nextInt(weapons.size())));
-        fighter2.pickUpWeapon(weapons.get(random.nextInt(weapons.size())));
-        fighter1.pickUpArmor(armors.get(random.nextInt(armors.size())));
-        fighter2.pickUpArmor(armors.get(random.nextInt(armors.size())));
-
+        armFighters(fighter1, fighter2);
+        armorFighters(fighter1, fighter2);
+        int round = 1;
         while (fighter1.isAlive() && fighter2.isAlive()) {
+            System.out.println("\n*****---------*****");
+            System.out.println("Round: " + round);
+            System.out.println();
+            if (round % 3 == 0) {
+                armFighters(fighter1, fighter2);
+                if (fighter1.getHealth() > fighter2.getHealth()) {
+                    fighter2.pickUpArmor(getRandomArmor());
+                } else if (fighter1.getHealth() < fighter2.getHealth()) {
+                    fighter1.pickUpArmor(getRandomArmor());
+                }
+            }
+
+
             if (fighter1.isAlive() && fighter2.isAlive()) {
                 Thread.sleep(2000);
                 fighter1.attack(fighter2);
@@ -33,7 +42,26 @@ public class Arena {
                 Thread.sleep(2000);
                 fighter2.attack(fighter1);
             }
+            round++;
         }
+    }
+
+    private Armor getRandomArmor() {
+        return armors.get(random.nextInt(armors.size()));
+    }
+
+    private void armFighters(Fighter fighter1, Fighter fighter2) {
+        fighter1.pickUpWeapon(getRandomWeapon());
+        fighter2.pickUpWeapon(getRandomWeapon());
+    }
+
+    private Weapon getRandomWeapon() {
+        return weapons.get(random.nextInt(weapons.size()));
+    }
+
+    private void armorFighters(Fighter fighter1, Fighter fighter2) {
+        fighter1.pickUpArmor(getRandomArmor());
+        fighter2.pickUpArmor(getRandomArmor());
     }
 
 
