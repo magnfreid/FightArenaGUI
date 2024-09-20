@@ -1,15 +1,13 @@
-import Fighter.Fighter;
+import Fighter.Mage;
+import Fighter.Rogue;
 import Game.Arena;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         Arena arena = new Arena();
-        Fighter chance  = new Fighter("Chance");
-        Fighter darkus = new Fighter("Darkus");
-        try {
-            arena.fight(chance, darkus);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        Mage mage = new Mage("Darkus");
+        Rogue rogue = new Rogue("Havarian");
+        arena.fight(mage, rogue);
+
     }
 }

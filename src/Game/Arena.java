@@ -1,9 +1,9 @@
 package Game;
 
 import Fighter.Fighter;
-import Items.Armor;
-import Items.Consumable;
-import Items.Weapon;
+import Gear.Armor;
+import Consumables.Consumable;
+import Gear.Weapon;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -18,8 +18,12 @@ public class Arena {
     public void fight(Fighter fighter1, Fighter fighter2) throws InterruptedException {
         armFighters(fighter1, fighter2);
         armorFighters(fighter1, fighter2);
+        System.out.println(fighter1);
+        System.out.println(fighter2);
         int round = 1;
         while (fighter1.isAlive() && fighter2.isAlive()) {
+            endSpecialPower(fighter1);
+            endSpecialPower(fighter2);
             System.out.println("\n*****---------*****");
             System.out.println("Round: " + round);
             System.out.println();
@@ -34,16 +38,33 @@ public class Arena {
 
 
             if (fighter1.isAlive() && fighter2.isAlive()) {
+                rollSpecialPower(fighter1);
                 Thread.sleep(2000);
                 fighter1.attack(fighter2);
             }
-
             if (fighter1.isAlive() && fighter2.isAlive()) {
+                rollSpecialPower(fighter2);
                 Thread.sleep(2000);
                 fighter2.attack(fighter1);
             }
             round++;
         }
+    }
+
+    private void rollSpecialPower(Fighter fighter) {
+        int specialPowerRoll = random.nextInt(1, 21);
+        System.out.println();
+        System.out.println(fighter.getName() + " specialPowerRoll = " + specialPowerRoll);
+        if (specialPowerRoll > 18) {
+            fighter.useSpecialPower();
+        }
+    }
+
+    private void endSpecialPower(Fighter fighter) {
+        if (fighter.isUsingSpecialPower()) {
+            fighter.toggleSpecialPower();
+        }
+
     }
 
     private Armor getRandomArmor() {

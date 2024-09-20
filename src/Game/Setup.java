@@ -1,8 +1,8 @@
 package Game;
 
-import Items.Consumable;
-import Items.Armor;
-import Items.Weapon;
+import Consumables.Consumable;
+import Gear.Armor;
+import Gear.Weapon;
 
 import java.util.ArrayList;
 import java.util.Arrays;
