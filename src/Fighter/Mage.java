@@ -5,12 +5,16 @@ public class Mage extends Fighter{
         super(name);
         this.health = 80;
     }
-//TODO dessa funkar inte!!!!!!
+
     @Override
     public void useSpecialPower() {
         System.out.println(name + " charges up!");
-        this.baseDamage = 75;
-        toggleSpecialPower();
+        baseDamage = 100;
+    }
+
+    @Override
+    public void endSpecialPower() {
+        baseDamage = 10;
     }
 
 }

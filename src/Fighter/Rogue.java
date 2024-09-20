@@ -12,8 +12,13 @@ public class Rogue extends Fighter {
     @Override
     public void useSpecialPower() {
         System.out.println(name + " goes for the eyes!");
-        this.toCrit = 2;
-        toggleSpecialPower();
+       setToCrit(2);
     }
+
+    @Override
+    public void endSpecialPower() {
+        setToCrit(18);
+    }
+
 
 }

@@ -14,16 +14,6 @@ public abstract class Fighter implements Character {
     final private Weapon fist = new Weapon("Fists", 0, 1.3);
     final private Armor shirt = new Armor("Shirt", 0, 0);
     protected boolean isAlive = true;
-    protected boolean usingSpecialPower;
-
-    public boolean isUsingSpecialPower() {
-        return usingSpecialPower;
-    }
-
-    public void toggleSpecialPower() {
-        usingSpecialPower = !usingSpecialPower;
-        System.out.println("Special power: " + usingSpecialPower);
-    }
 
     public Fighter(String name) {
         this.name = name;
@@ -35,7 +25,6 @@ public abstract class Fighter implements Character {
         this.armor = shirt;
         this.critBonusModifier = 1;
         this.toCrit = 20;
-        this.usingSpecialPower = false;
     }
 
     Random random = new Random();
@@ -52,17 +41,17 @@ public abstract class Fighter implements Character {
         System.out.println();
         boolean criticalHit = false;
         boolean criticalMiss = false;
-        int critRoll = random.nextInt(1, toCrit+1);
+        //TODO tror critten rollar fel
+        int critRoll = random.nextInt(1, 21);
         System.out.println("critRoll = " + critRoll);
         System.out.println();
-        if (critRoll == toCrit) {
+        if (critRoll >= toCrit) {
             criticalHit = true;
-        }
-        if (critRoll == 1) {
+        } else if (critRoll == 1) {
             criticalMiss = true;
         }
-        int attackDamage = (int) ((random.nextInt(1, baseDamage) + weapon.getWeaponDamage()) * (criticalHit ? weapon.getCritModifier()*critBonusModifier : 1));
-        int enemyArmor = enemy.getArmor().getArmorValue()+enemy.getBaseArmor();
+        int attackDamage = (int) ((random.nextInt(1, baseDamage) + weapon.getWeaponDamage()) * (criticalHit ? weapon.getCritModifier() * critBonusModifier : 1));
+        int enemyArmor = enemy.getArmor().getArmorValue() + enemy.getBaseArmor();
         int totalAttackDamage;
         int deflected;
         if (!criticalMiss) {
@@ -89,8 +78,9 @@ public abstract class Fighter implements Character {
             } else {
                 System.out.println(enemy.getName() + " has " + enemy.getHealth() + " health left...");
             }
+        } else {
+            System.out.println(name + " critically missed!");
         }
-        else {System.out.println(name + " critically missed!");}
     }
 
     public void pickUpWeapon(Weapon weapon) {
@@ -171,5 +161,17 @@ public abstract class Fighter implements Character {
                 ", isAlive=" + isAlive +
                 ", random=" + random +
                 '}';
+    }
+
+    public void setBaseDamage(int baseDamage) {
+        this.baseDamage = baseDamage;
+    }
+
+    public void setToCrit(int toCrit) {
+        this.toCrit = toCrit;
+    }
+
+    public void setBaseArmor(int baseArmor) {
+        this.baseArmor = baseArmor;
     }
 }

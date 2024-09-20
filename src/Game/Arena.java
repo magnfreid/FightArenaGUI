@@ -22,8 +22,6 @@ public class Arena {
         System.out.println(fighter2);
         int round = 1;
         while (fighter1.isAlive() && fighter2.isAlive()) {
-            endSpecialPower(fighter1);
-            endSpecialPower(fighter2);
             System.out.println("\n*****---------*****");
             System.out.println("Round: " + round);
             System.out.println();
@@ -35,14 +33,14 @@ public class Arena {
                     fighter1.pickUpArmor(getRandomArmor());
                 }
             }
-
-
             if (fighter1.isAlive() && fighter2.isAlive()) {
+                endSpecialPower(fighter1);
                 rollSpecialPower(fighter1);
                 Thread.sleep(2000);
                 fighter1.attack(fighter2);
             }
             if (fighter1.isAlive() && fighter2.isAlive()) {
+                endSpecialPower(fighter2);
                 rollSpecialPower(fighter2);
                 Thread.sleep(2000);
                 fighter2.attack(fighter1);
@@ -61,10 +59,7 @@ public class Arena {
     }
 
     private void endSpecialPower(Fighter fighter) {
-        if (fighter.isUsingSpecialPower()) {
-            fighter.toggleSpecialPower();
-        }
-
+        fighter.endSpecialPower();
     }
 
     private Armor getRandomArmor() {

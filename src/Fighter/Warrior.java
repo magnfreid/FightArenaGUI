@@ -12,7 +12,12 @@ public class Warrior extends Fighter{
     public void useSpecialPower() {
         System.out.println(name + " is on a rampage!");
         baseArmor = 100;
-        toggleSpecialPower();
+
+    }
+
+    @Override
+    public void endSpecialPower() {
+        baseArmor = 0;
     }
 
 
