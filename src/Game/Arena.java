@@ -30,7 +30,7 @@ public class Arena {
         Champion champion2 = createChampion(input);
         System.out.println("It's " + champion1.getClass() + " vs. " + champion2.getClass() + "!!!");
         Champion winner = fight(champion1, champion2);
-        //TODO lägg till reseten av game loopen
+        //TODO lägg till reseten av game loopen (kör till någon når max level)
     }
 
     //Chans att plocka upp ett bättre vapen var tredje runda + bättre armor för den med minst liv...
@@ -38,6 +38,7 @@ public class Arena {
         Champion winner;
         armFighters(champion1, champion2);
         armorFighters(champion1, champion2);
+        //TODO snygga till printen
         System.out.println(champion1);
         System.out.println(champion2);
         int round = 1;
@@ -54,16 +55,10 @@ public class Arena {
                 }
             }
             if (champion1.isAlive() && champion2.isAlive()) {
-                endSpecialPower(champion1);
-                rollSpecialPower(champion1);
-                Thread.sleep(2000);
-                champion1.attack(champion2);
+                turn(champion1, champion2);
             }
             if (champion1.isAlive() && champion2.isAlive()) {
-                endSpecialPower(champion2);
-                rollSpecialPower(champion2);
-                Thread.sleep(2000);
-                champion2.attack(champion1);
+                turn(champion2, champion1);
             }
             round++;
         }
@@ -79,6 +74,13 @@ public class Arena {
         winner.dropArmor();
         winner.dropWeapon();
         return winner;
+    }
+
+    private void turn(Champion attacker, Champion defender) throws InterruptedException {
+        endSpecialPower(attacker);
+        rollSpecialPower(attacker);
+        Thread.sleep(2000);
+        attacker.attack(defender);
     }
 
     private void rollSpecialPower(Champion champion) {

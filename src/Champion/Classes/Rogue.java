@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public class Rogue extends Champion {
     public Rogue(String name) {
         super(name);
+        this.championClass = "Rogue";
         this.baseDamage = 20;
         this.health = 80;
         this.critBonusModifier = 1.5;
@@ -14,7 +15,6 @@ public class Rogue extends Champion {
         this.specialPowers = new ArrayList<>();
         this.specialPowers.add(new Backstab());
         this.specialPowers.add(new Dodge());
-        this.championClass = "Rogue";
     }
 
     private class Backstab implements SpecialPower {

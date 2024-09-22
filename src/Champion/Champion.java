@@ -9,6 +9,7 @@ import java.util.Random;
 
 public abstract class Champion implements Attacker {
     final protected String name;
+    final static int MAX_LEVEL = 10;
     protected String championClass;
     protected int health = 100, level = 1, baseDamage = 10, baseArmor = 0, toCrit = 20, activePowerIndex = 0;
     protected double critBonusModifier = 1, levelUpHealthModifier = 1.05, levelUpDamageModifier = 1.15;
@@ -19,12 +20,12 @@ public abstract class Champion implements Attacker {
 
     public Champion(String name) {
         this.name = name;
-        this.weapon = fist;
+        this.weapon = fists;
         this.armor = shirt;
     }
 
     Random random = new Random();
-    final private Weapon fist = new Weapon("Fists", 0, 1.3);
+    final private Weapon fists = new Weapon("Fists", 0, 1.3);
     final private Armor shirt = new Armor("Shirt", 0, 0);
 
     public void levelUp() {
@@ -73,7 +74,7 @@ public abstract class Champion implements Attacker {
             }
             System.out.println(enemy.getName() + " took " + totalAttackDamage + " damage!");
             if (enemy.getHealth() < 1) {
-                enemy.playerDeath();
+                enemy.playerKilled();
                 System.out.println(enemy.name + " died...");
                 System.out.println("The winner is " + name + "!");
             } else {
@@ -109,7 +110,7 @@ public abstract class Champion implements Attacker {
     }
 
     public void dropWeapon() {
-        setWeapon(fist);
+        setWeapon(fists);
     }
 
     public String getName() {
@@ -144,7 +145,7 @@ public abstract class Champion implements Attacker {
         return isAlive;
     }
 
-    public void playerDeath() {
+    public void playerKilled() {
         isAlive = false;
     }
 
