@@ -3,17 +3,21 @@ package Fighter;
 import Gear.Armor;
 import Gear.Weapon;
 
+import java.util.ArrayList;
 import java.util.Random;
 
-public abstract class Fighter implements Character {
+public abstract class Fighter implements Attacker {
     final protected String name;
     protected int health, level, baseDamage, baseArmor, toCrit;
-    protected double critBonusModifier;
+    protected double critBonusModifier, levelUpHealthModifier, levelUpDamageModifier;
     protected Weapon weapon;
     protected Armor armor;
     final private Weapon fist = new Weapon("Fists", 0, 1.3);
     final private Armor shirt = new Armor("Shirt", 0, 0);
     protected boolean isAlive = true;
+    protected ArrayList<SpecialPower> specialPowers;
+    protected int activePowerIndex = 0;
+    protected boolean specialPowerActive = false;
 
     public Fighter(String name) {
         this.name = name;
@@ -25,16 +29,22 @@ public abstract class Fighter implements Character {
         this.armor = shirt;
         this.critBonusModifier = 1;
         this.toCrit = 20;
+        this.levelUpHealthModifier = 1.05;
+        this.levelUpDamageModifier = 1.15;
     }
 
     Random random = new Random();
 
     public void levelUp() {
         level++;
-        double healthModifier = 1.05;
-        double damageModifier = 1.15;
-        health = (int) (health * healthModifier);
-        baseDamage = (int) (baseDamage * damageModifier);
+        health = (int) (health * levelUpHealthModifier);
+        baseDamage = (int) (baseDamage * levelUpDamageModifier);
+    }
+
+    public void levelDown() {
+        level--;
+        health = (int) (health / levelUpHealthModifier);
+        baseDamage = (int) (baseDamage / levelUpDamageModifier);
     }
 
     public void attack(Fighter enemy) {
@@ -144,6 +154,26 @@ public abstract class Fighter implements Character {
         return baseArmor;
     }
 
+    public ArrayList<SpecialPower> getSpecialPowers() {
+        return specialPowers;
+    }
+
+    public int getActivePowerIndex() {
+        return activePowerIndex;
+    }
+
+    public void setActivePowerIndex(int activePowerIndex) {
+        this.activePowerIndex = activePowerIndex;
+    }
+
+    public boolean isSpecialPowerActive() {
+        return specialPowerActive;
+    }
+
+    public void setSpecialPowerActive(boolean specialPowerActive) {
+        this.specialPowerActive = specialPowerActive;
+    }
+
     @Override
     public String toString() {
         return "Fighter{" +
@@ -173,5 +203,9 @@ public abstract class Fighter implements Character {
 
     public void setBaseArmor(int baseArmor) {
         this.baseArmor = baseArmor;
+    }
+
+    public void setSpecialPowers(ArrayList<SpecialPower> specialPowers) {
+        this.specialPowers = specialPowers;
     }
 }

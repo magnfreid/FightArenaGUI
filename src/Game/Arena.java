@@ -2,7 +2,6 @@ package Game;
 
 import Fighter.Fighter;
 import Gear.Armor;
-import Consumables.Consumable;
 import Gear.Weapon;
 
 import java.util.ArrayList;
@@ -11,7 +10,7 @@ import java.util.Random;
 public class Arena {
     final private ArrayList<Weapon> weapons = Setup.loadWeapons();
     final private ArrayList<Armor> armors = Setup.loadArmors();
-    final private ArrayList<Consumable> consumables = Setup.loadConsumables();
+    // final private ArrayList<Consumable> consumables = Setup.loadConsumables();
     Random random = new Random();
 
     //Chans att plocka upp ett bättre vapen var tredje runda + bättre armor för den med minst liv...
@@ -53,13 +52,18 @@ public class Arena {
         int specialPowerRoll = random.nextInt(1, 21);
         System.out.println();
         System.out.println(fighter.getName() + " specialPowerRoll = " + specialPowerRoll);
-        if (specialPowerRoll > 18) {
-            fighter.useSpecialPower();
+        if (specialPowerRoll > 10) {
+            fighter.setSpecialPowerActive(true);
+            int randomPower = random.nextInt(0, (fighter.getSpecialPowers().size()));
+            fighter.setActivePowerIndex(randomPower);
+            fighter.getSpecialPowers().get(randomPower).activatePower();
         }
     }
 
     private void endSpecialPower(Fighter fighter) {
-        fighter.endSpecialPower();
+        if (fighter.isSpecialPowerActive()) {
+            fighter.getSpecialPowers().get(fighter.getActivePowerIndex()).deactivatePower();
+        }
     }
 
     private Armor getRandomArmor() {

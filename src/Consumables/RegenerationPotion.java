@@ -15,6 +15,6 @@ public class RegenerationPotion extends Consumable implements UseConsumable{
     public void useConsumable(Fighter fighter) {
       fighter.setHealth(fighter.getHealth() + healing);
         System.out.println(fighter.getName() + " used " + name +"!");
-        System.out.println(fighter.getName() + " now has " +fighter.getHealth() +" health.");
+        System.out.println(fighter.getName() + " now has " + fighter.getHealth() +" health.");
     }
 }

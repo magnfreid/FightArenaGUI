@@ -1,5 +1,7 @@
 package Fighter;
 
+import java.util.ArrayList;
+
 public class Rogue extends Fighter {
     public Rogue(String name) {
         super(name);
@@ -7,18 +9,37 @@ public class Rogue extends Fighter {
         this.health = 80;
         this.critBonusModifier = 1.5;
         this.toCrit = 18;
+        this.specialPowers = new ArrayList<>();
+        this.specialPowers.add(new Backstab());
+        this.specialPowers.add(new Dodge());
     }
 
-    @Override
-    public void useSpecialPower() {
-        System.out.println(name + " goes for the eyes!");
-       setToCrit(2);
+    private class Backstab implements SpecialPower {
+
+        @Override
+        public void activatePower() {
+            System.out.println(name + " goes for the eyes!");
+            toCrit -= 16;
+        }
+
+        @Override
+        public void deactivatePower() {
+            toCrit += 16;
+        }
     }
 
-    @Override
-    public void endSpecialPower() {
-        setToCrit(18);
-    }
+    private class Dodge implements SpecialPower {
 
+        @Override
+        public void activatePower() {
+            System.out.println(name + " dodges!");
+            baseArmor += 50;
+        }
+
+        @Override
+        public void deactivatePower() {
+            baseArmor -= 50;
+        }
+    }
 
 }
