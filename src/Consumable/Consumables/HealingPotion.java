@@ -1,6 +1,7 @@
-package Consumables;
-
+package Consumable.Consumables;
+import Consumable.UseConsumable;
 import Champion.Champion;
+import Consumable.Consumable;
 
 public class HealingPotion extends Consumable implements UseConsumable {
     final private int healing;

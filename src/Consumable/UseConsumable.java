@@ -1,4 +1,4 @@
-package Consumables;
+package Consumable;
 
 import Champion.Champion;
 

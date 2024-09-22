@@ -1,6 +1,6 @@
 package Game;
 
-import Consumables.Consumable;
+import Consumable.Consumable;
 import Gear.Armor;
 import Gear.Weapon;
 

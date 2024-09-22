@@ -1,4 +1,4 @@
-package Consumables;
+package Consumable;
 
 public abstract class Consumable {
     final protected String name;

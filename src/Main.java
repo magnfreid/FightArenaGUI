@@ -1,5 +1,5 @@
-import Champion.Mage;
-import Champion.Rogue;
+import Champion.Classes.Mage;
+import Champion.Classes.Rogue;
 import Game.Arena;
 
 public class Main {

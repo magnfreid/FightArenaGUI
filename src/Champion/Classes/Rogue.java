@@ -1,5 +1,7 @@
-package Champion;
+package Champion.Classes;
 
+import Champion.Champion;
+import Champion.SpecialPower;
 import java.util.ArrayList;
 
 public class Rogue extends Champion {

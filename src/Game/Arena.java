@@ -1,9 +1,9 @@
 package Game;
 
 import Champion.Champion;
-import Champion.Mage;
-import Champion.Rogue;
-import Champion.Warrior;
+import Champion.Classes.Mage;
+import Champion.Classes.Rogue;
+import Champion.Classes.Warrior;
 import Gear.Armor;
 import Gear.Weapon;
 
@@ -72,7 +72,7 @@ public class Arena {
             champion1.levelUp();
             winner = champion1;
         } else {
-            System.out.println(champion1.getName() + " wins the fight and gains 1 level!");
+            System.out.println(champion2.getName() + " wins the fight and gains 1 level!");
             champion2.levelUp();
             winner = champion2;
         }
@@ -85,7 +85,7 @@ public class Arena {
         int specialPowerRoll = Dice.roll20();
         System.out.println();
         System.out.println(champion.getName() + " specialPowerRoll = " + specialPowerRoll);
-        if (specialPowerRoll > 10) {
+        if (specialPowerRoll > 18) {
             champion.setSpecialPowerActive(true);
             int randomPower = random.nextInt(0, (champion.getSpecialPowers().size()));
             champion.setActivePowerIndex(randomPower);

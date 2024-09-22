@@ -1,6 +1,8 @@
-package Consumables;
+package Consumable.Consumables;
 
-public class ShieldPotion extends  Consumable{
+import Consumable.Consumable;
+
+public class ShieldPotion extends Consumable {
     final private int armorBonus;
     final private int duration;
     public ShieldPotion(String name) {
