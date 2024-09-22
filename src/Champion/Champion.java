@@ -1,39 +1,31 @@
-package Fighter;
+package Champion;
 
+import Game.Dice;
 import Gear.Armor;
 import Gear.Weapon;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public abstract class Fighter implements Attacker {
+public abstract class Champion implements Attacker {
     final protected String name;
-    protected int health, level, baseDamage, baseArmor, toCrit;
-    protected double critBonusModifier, levelUpHealthModifier, levelUpDamageModifier;
+    protected String championClass;
+    protected int health = 100, level = 1, baseDamage = 10, baseArmor = 0, toCrit = 20, activePowerIndex = 0;
+    protected double critBonusModifier = 1, levelUpHealthModifier = 1.05, levelUpDamageModifier = 1.15;
     protected Weapon weapon;
     protected Armor armor;
-    final private Weapon fist = new Weapon("Fists", 0, 1.3);
-    final private Armor shirt = new Armor("Shirt", 0, 0);
-    protected boolean isAlive = true;
+    private boolean isAlive = true, specialPowerActive = false;
     protected ArrayList<SpecialPower> specialPowers;
-    protected int activePowerIndex = 0;
-    protected boolean specialPowerActive = false;
 
-    public Fighter(String name) {
+    public Champion(String name) {
         this.name = name;
-        this.health = 100;
-        this.level = 1;
-        this.baseDamage = 10;
-        this.baseArmor = 0;
         this.weapon = fist;
         this.armor = shirt;
-        this.critBonusModifier = 1;
-        this.toCrit = 20;
-        this.levelUpHealthModifier = 1.05;
-        this.levelUpDamageModifier = 1.15;
     }
 
     Random random = new Random();
+    final private Weapon fist = new Weapon("Fists", 0, 1.3);
+    final private Armor shirt = new Armor("Shirt", 0, 0);
 
     public void levelUp() {
         level++;
@@ -47,25 +39,24 @@ public abstract class Fighter implements Attacker {
         baseDamage = (int) (baseDamage / levelUpDamageModifier);
     }
 
-    public void attack(Fighter enemy) {
+    public void attack(Champion enemy) {
         System.out.println();
         boolean criticalHit = false;
         boolean criticalMiss = false;
-        //TODO tror critten rollar fel
-        int critRoll = random.nextInt(1, 21);
-        System.out.println("critRoll = " + critRoll);
-        System.out.println();
+        int critRoll = Dice.roll20();
         if (critRoll >= toCrit) {
             criticalHit = true;
         } else if (critRoll == 1) {
             criticalMiss = true;
         }
+        //Rollar mellan 1 och baseDamage, lägger till weapon damage --> gångras med karaktärens och vapnets crit modifier vid crit
         int attackDamage = (int) ((random.nextInt(1, baseDamage) + weapon.getWeaponDamage()) * (criticalHit ? weapon.getCritModifier() * critBonusModifier : 1));
         int enemyArmor = enemy.getArmor().getArmorValue() + enemy.getBaseArmor();
         int totalAttackDamage;
         int deflected;
         if (!criticalMiss) {
             if (enemyArmor > attackDamage) {
+                //Ser till så att man inte kan deflecta mer än vad man har i armor
                 deflected = attackDamage;
                 totalAttackDamage = 0;
             } else {
@@ -102,7 +93,6 @@ public abstract class Fighter implements Attacker {
         }
     }
 
-
     public void pickUpArmor(Armor armor) {
         if (armor.getArmorValue() > this.armor.getArmorValue()) {
             this.armor = armor;
@@ -113,9 +103,13 @@ public abstract class Fighter implements Attacker {
         }
     }
 
-    void dropArmor() {
+    public void dropArmor() {
         this.setHealth(getHealth() - armor.getHealthBonus());
         setArmor(shirt);
+    }
+
+    public void dropWeapon() {
+        setWeapon(fist);
     }
 
     public String getName() {
@@ -126,6 +120,10 @@ public abstract class Fighter implements Attacker {
         return health;
     }
 
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
     public int getLevel() {
         return level;
     }
@@ -134,12 +132,12 @@ public abstract class Fighter implements Attacker {
         return armor;
     }
 
-    public void setHealth(int health) {
-        this.health = health;
-    }
-
     public void setArmor(Armor armor) {
         this.armor = armor;
+    }
+
+    public void setWeapon(Weapon weapon) {
+        this.weapon = weapon;
     }
 
     public boolean isAlive() {
@@ -176,36 +174,8 @@ public abstract class Fighter implements Attacker {
 
     @Override
     public String toString() {
-        return "Fighter{" +
-                "name='" + name + '\'' +
-                ", health=" + health +
-                ", level=" + level +
-                ", baseDamage=" + baseDamage +
-                ", baseArmor=" + baseArmor +
-                ", toCrit=" + toCrit +
-                ", critBonusModifier=" + critBonusModifier +
-                ", weapon=" + weapon +
-                ", armor=" + armor +
-                ", fist=" + fist +
-                ", shirt=" + shirt +
-                ", isAlive=" + isAlive +
-                ", random=" + random +
-                '}';
-    }
-
-    public void setBaseDamage(int baseDamage) {
-        this.baseDamage = baseDamage;
-    }
-
-    public void setToCrit(int toCrit) {
-        this.toCrit = toCrit;
-    }
-
-    public void setBaseArmor(int baseArmor) {
-        this.baseArmor = baseArmor;
-    }
-
-    public void setSpecialPowers(ArrayList<SpecialPower> specialPowers) {
-        this.specialPowers = specialPowers;
+        return "Champion: " + name +
+                "Health: " + health
+                ;
     }
 }

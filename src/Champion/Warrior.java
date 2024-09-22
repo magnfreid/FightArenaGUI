@@ -1,10 +1,11 @@
-package Fighter;
+package Champion;
 
 import java.util.ArrayList;
 
-public class Warrior extends Fighter {
+public class Warrior extends Champion {
     public Warrior(String name) {
         super(name);
+        this.championClass = "Warrior";
         this.baseArmor = 10;
         this.health = 150;
         this.specialPowers = new ArrayList<>();

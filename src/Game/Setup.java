@@ -13,7 +13,7 @@ public class Setup {
     private static final ArrayList<Armor> armors = new ArrayList<>();
 
     static {
-        // Initialize the list of armors
+        //TODO ändra till mer passande namn på armor och vapen
         armors.addAll(Arrays.asList(
                 new Armor("Tactical Vest", 5, 0),
                 new Armor("Heavy Combat Armor", 25, 20),
@@ -27,6 +27,7 @@ public class Setup {
                 new Armor("Adaptive Cloak", 25, 50)
         ));
     }
+
 
     static {
         // Initialize the list of weapons
@@ -55,7 +56,7 @@ public class Setup {
         ));
     }
 
-    //TODO Add consumables
+    //TODO Implementera Consumables
 
     public static ArrayList<Consumable> loadConsumables() {
         return consumables;

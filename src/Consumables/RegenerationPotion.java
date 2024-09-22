@@ -1,5 +1,5 @@
 package Consumables;
-import Fighter.Fighter;
+import Champion.Champion;
 
 public class RegenerationPotion extends Consumable implements UseConsumable{
     final private int healing;
@@ -12,9 +12,9 @@ public class RegenerationPotion extends Consumable implements UseConsumable{
     }
 
     @Override
-    public void useConsumable(Fighter fighter) {
-      fighter.setHealth(fighter.getHealth() + healing);
-        System.out.println(fighter.getName() + " used " + name +"!");
-        System.out.println(fighter.getName() + " now has " + fighter.getHealth() +" health.");
+    public void useConsumable(Champion champion) {
+      champion.setHealth(champion.getHealth() + healing);
+        System.out.println(champion.getName() + " used " + name +"!");
+        System.out.println(champion.getName() + " now has " + champion.getHealth() +" health.");
     }
 }

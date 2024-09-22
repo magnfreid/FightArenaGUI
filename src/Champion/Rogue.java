@@ -1,8 +1,8 @@
-package Fighter;
+package Champion;
 
 import java.util.ArrayList;
 
-public class Rogue extends Fighter {
+public class Rogue extends Champion {
     public Rogue(String name) {
         super(name);
         this.baseDamage = 20;
@@ -12,6 +12,7 @@ public class Rogue extends Fighter {
         this.specialPowers = new ArrayList<>();
         this.specialPowers.add(new Backstab());
         this.specialPowers.add(new Dodge());
+        this.championClass = "Rogue";
     }
 
     private class Backstab implements SpecialPower {

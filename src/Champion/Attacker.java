@@ -1,6 +1,6 @@
-package Fighter;
+package Champion;
 
 public interface Attacker {
-    void attack(Fighter enemy);
+    void attack(Champion enemy);
     void levelUp();
 }

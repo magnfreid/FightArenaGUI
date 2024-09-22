@@ -1,7 +1,7 @@
 package Consumables;
 
-import Fighter.Fighter;
+import Champion.Champion;
 
 public interface UseConsumable {
-    void useConsumable(Fighter fighter);
+    void useConsumable(Champion champion);
 }
