@@ -127,6 +127,7 @@ public class Arena {
     private void endSpecialPower(Champion champion) {
         if (champion.isSpecialPowerActive()) {
             champion.getSpecialPowers().get(champion.getActivePowerIndex()).deactivatePower();
+            champion.setSpecialPowerActive(false);
         }
     }
 
