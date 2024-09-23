@@ -1,5 +1,7 @@
 package Champion;
 
+import Consumables.Consumable;
+import Consumables.Potions.InstantPotion;
 import Game.Dice;
 import Gear.Armor;
 import Gear.Weapon;
@@ -17,6 +19,10 @@ public abstract class Champion implements Attacker {
     protected Armor armor;
     private boolean isAlive = true, specialPowerActive = false;
     protected ArrayList<SpecialPower> specialPowers;
+    private InstantPotion instantPotion;
+
+
+    private Consumable consumable;
 
     public Champion(String name) {
         this.name = name;
@@ -173,10 +179,11 @@ public abstract class Champion implements Attacker {
         this.specialPowerActive = specialPowerActive;
     }
 
+
     @Override
     public String toString() {
         return "Champion: " + name +
-                "Health: " + health
-                ;
+                "Health: " + health +
+                "Level: " + level;
     }
 }

@@ -1,6 +1,6 @@
 package Game;
 
-import Consumable.Consumable;
+import Consumables.Potions.InstantPotion;
 import Gear.Armor;
 import Gear.Weapon;
 
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Setup {
-    private static final ArrayList<Consumable> consumables = new ArrayList<>();
+    private static final ArrayList<InstantPotion> INSTANT_POTIONS = new ArrayList<>();
     private static final ArrayList<Weapon> weapons = new ArrayList<>();
     private static final ArrayList<Armor> armors = new ArrayList<>();
 
@@ -58,8 +58,8 @@ public class Setup {
 
     //TODO Implementera Consumables
 
-    public static ArrayList<Consumable> loadConsumables() {
-        return consumables;
+    public static ArrayList<InstantPotion> loadConsumables() {
+        return INSTANT_POTIONS;
     }
 
     public static ArrayList<Weapon> loadWeapons() {
