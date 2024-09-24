@@ -87,7 +87,7 @@ public class Arena {
         int specialPowerRoll = Dice.roll20();
         System.out.println();
         System.out.println(champion.getName() + " specialPowerRoll = " + specialPowerRoll);
-        if (specialPowerRoll > 18) {
+        if (specialPowerRoll > 15) {
             champion.setSpecialPowerActive(true);
             int randomPower = random.nextInt(0, (champion.getSpecialPowers().size()));
             champion.setActivePowerIndex(randomPower);
